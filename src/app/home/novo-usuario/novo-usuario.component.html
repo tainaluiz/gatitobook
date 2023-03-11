@@ -1,0 +1,76 @@
+<h4 class="text-center">Registre-se e mostre seu pet ao mundo</h4>
+
+<form class="form mt-4" [formGroup]="novoUsuarioForm" (submit)="cadastrar()">
+  <div>
+    <input
+      type="text"
+      placeholder="E-mail"
+      class="form-control"
+      formControlName="email"
+    />
+    <app-mensagem
+      *ngIf="getField('email')?.touched && getField('email')?.errors"
+      [mensagem]="
+        fieldHasError('email', 'email')
+          ? 'E-mail inválido'
+          : 'E-mail obrigatório'
+      "
+    ></app-mensagem>
+  </div>
+  <div class="mt-3">
+    <input
+      type="text"
+      placeholder="Nome Completo"
+      class="form-control"
+      formControlName="fullName"
+    />
+    <app-mensagem
+      *ngIf="getField('fullName')?.touched && getField('fullName')?.errors"
+      mensagem="Nome inválido"
+    ></app-mensagem>
+  </div>
+  <div class="mt-3">
+    <input
+      type="text"
+      placeholder="Usuário"
+      class="form-control"
+      formControlName="userName"
+    />
+    <app-mensagem
+      *ngIf="getField('userName')?.touched && getField('userName')?.errors"
+      [mensagem]="
+        fieldHasError('userName', 'minusculo')
+          ? 'Usuário deve ser em letra minúscula'
+          : fieldHasError('userName', 'usuarioExistente')
+          ? 'Usuário já existe'
+          : 'Usuário obrigatório'
+      "
+    ></app-mensagem>
+  </div>
+  <div class="mt-3">
+    <input
+      type="password"
+      placeholder="Senha"
+      class="form-control"
+      formControlName="password"
+    />
+    <app-mensagem
+      *ngIf="getField('password')?.touched && getField('password')?.errors"
+      mensagem="Senha obrigatória"
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="
+        getField('password')?.valid && novoUsuarioForm.errors?.senhaIgualUsuario
+      "
+      mensagem="Senha deve ser diferente do usuário"
+    ></app-mensagem>
+  </div>
+
+  <div class="d-grid mt-3">
+    <button class="btn btn-primary">Cadastro</button>
+  </div>
+</form>
+
+<div class="mt-1">
+  <p>Já é um usuário? <a routerLink="">Faça login!</a></p>
+</div>
